@@ -6,6 +6,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui->lineEditName1 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
+    connect(ui->lineEditName2 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
+
 }
 
 MainWindow::~MainWindow()
@@ -13,3 +16,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::enableGame(){
+
+}
