@@ -10,6 +10,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->lineEditName1 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
     connect(ui->lineEditName2 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
 
+    //etesale dokme haye bazi -> handleButtonClick
+    for (int i = 1 ; i < 26 ; i++){
+        QPushButton *button = findChild<QPushButton*>(QString("btn%1").arg(i));
+        if(button){
+            connect(button, &QPushButton::clicked , this , &MainWindow::handleButtonClick);
+        }
+    }
 }
 
 MainWindow::~MainWindow()
@@ -18,5 +25,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::enableGame(){
+
+}
+
+void handleButtonClick(){
 
 }
