@@ -30,17 +30,31 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::enableGame(){
+    bool bothNamesEntered = !ui->lineEditName1->text().isEmpty() && !ui->lineEditName2->text().isEmpty();
+    for (int i = 0 ; i<=25 ; i++){
+        QPushButton* button = findChild<QPushButton*>(QString("btn%1").arg(i));
+        if (button){
+            button->setEnabled(bothNamesEntered);
+        }
+        if (bothNamesEntered){
+            resetGame();
+        }
+    }
 
 }
 
-void handleButtonClick(){
+void MainWindow::handleButtonClick(){
 
 }
 
-void handleAgree(){
+void MainWindow::handleAgree(){
 
 }
 
 void handleReset(){
+
+}
+
+void MainWindow::resetGame(){
 
 }
