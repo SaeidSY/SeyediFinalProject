@@ -17,6 +17,11 @@ public:
 
 private slots:
     void enableGame();
+    void handleButtonClick();
+    void handleAgree();
+    void handleReset();
+    void resetGame();
+    void checkForWin();
 
 private:
     Ui::MainWindow *ui;
