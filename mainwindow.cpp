@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lblWinnerTitle->setVisible(false);
     ui->gridLayoutWidget_4->setVisible(false);
 
+    disableAllButtons();
+
     //etesale names be enableGame
     connect(ui->lineEditName1 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
     connect(ui->lineEditName2 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
@@ -33,6 +35,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnAgree , &QPushButton::clicked , this , &MainWindow::handleAgree);
     connect(ui->btnReset , &QPushButton::clicked , this , &MainWindow::handleReset);
 
+    //scoreBoardSync
+    connect(ui->lineEditWin1, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+    connect(ui->lineEditWin2, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+    connect(ui->lineEditLose1, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+    connect(ui->lineEditLose2, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+    connect(ui->lineEditDraw1, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+    connect(ui->lineEditDraw2, &QLineEdit::textChanged , this , &MainWindow::syncScoreBoard );
+
+    resetGame();
 }
 
 MainWindow::~MainWindow()
@@ -60,6 +71,7 @@ void MainWindow::handleButtonClick(){
         if (!gameStarted){
             ui->lineEditName1->setEnabled(false);
             ui->lineEditName2->setEnabled(false);
+            setScoreBoardEnabled(false);
             gameStarted = true;
         }
     }
@@ -133,15 +145,7 @@ void MainWindow::resetGame(){
     ui->lblWinnerTitle->setVisible(false);
     ui->gridLayoutWidget_4->setVisible(false);
 
-    ui->lineEditDraw1->setEnabled(true);
-    ui->lineEditDraw2->setEnabled(true);
-    ui->lineEditName1->setEnabled(true);
-    ui->lineEditName2->setEnabled(true);
-    ui->lineEditLose1->setEnabled(true);
-    ui->lineEditLose2->setEnabled(true);
-
-    scoreBoardDisabled = false;
-
+    setScoreBoardEnabled(true);
     ui->rbtnYes->setChecked(true);
 }
 
@@ -215,12 +219,20 @@ void MainWindow::disableAllButtons(){
 
 }
 
+void MainWindow::setScoreBoardEnabled(bool s){
+    ui->lineEditDraw1->setEnabled(s);
+    ui->lineEditDraw2->setEnabled(s);
+    ui->lineEditWin1->setEnabled(s);
+    ui->lineEditWin2->setEnabled(s);
+    ui->lineEditLose1->setEnabled(s);
+    ui->lineEditLose2->setEnabled(s);
+}
 
 void MainWindow::syncScoreBoard() {
     // جلوگیری از حلقه بی‌نهایت با بلاک کردن سیگنال‌ها
-    QSignalBlocker blocker1(ui->lineEditLose2);
-    QSignalBlocker blocker2(ui->lineEditLose1);
-    QSignalBlocker blocker3(ui->lineEditDraw2);
+//    QSignalBlocker blocker1(ui->lineEditLose2);
+//    QSignalBlocker blocker2(ui->lineEditLose1);
+//    QSignalBlocker blocker3(ui->lineEditDraw2);
 
     ui->lineEditLose2->setText(ui->lineEditWin1->text());
     ui->lineEditLose1->setText(ui->lineEditWin2->text());

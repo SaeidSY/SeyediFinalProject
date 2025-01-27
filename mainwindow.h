@@ -24,6 +24,8 @@ private slots:
     void checkForWin();
     void declareWinner(int);
     void disableAllButtons();
+    void syncScoreBoard();
+    void setScoreBoardEnabled(bool);
 
 private:
     Ui::MainWindow *ui;
