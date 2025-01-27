@@ -214,3 +214,16 @@ void MainWindow::declareWinner(int player){
 void MainWindow::disableAllButtons(){
 
 }
+
+
+void MainWindow::syncScoreBoard() {
+    // جلوگیری از حلقه بی‌نهایت با بلاک کردن سیگنال‌ها
+    QSignalBlocker blocker1(ui->lineEditLose2);
+    QSignalBlocker blocker2(ui->lineEditLose1);
+    QSignalBlocker blocker3(ui->lineEditDraw2);
+
+    ui->lineEditLose2->setText(ui->lineEditWin1->text());
+    ui->lineEditLose1->setText(ui->lineEditWin2->text());
+    ui->lineEditDraw2->setText(ui->lineEditDraw1->text());
+}
+
