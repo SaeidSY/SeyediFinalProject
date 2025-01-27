@@ -23,6 +23,7 @@ private slots:
     void resetGame();
     void checkForWin();
     void declareWinner(int);
+    void disableAllButtons();
 
 private:
     Ui::MainWindow *ui;

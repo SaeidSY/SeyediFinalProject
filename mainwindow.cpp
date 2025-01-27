@@ -1,16 +1,20 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-bool gameStarted;
+bool gameStarted = false;
 int currentPlayer = 1;
 int board[25] {0};
+int tempWin1 = 0 , tempWin2 = 0 , tempLose1 = 0 , tempLose2 = 0 , tempDraw1 = 0 , tempDraw2 = 0;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    gameStarted = false;
+
+    ui->lblGameOver->setVisible(false);
+    ui->lblWinnerTitle->setVisible(false);
+    ui->gridLayoutWidget_4->setVisible(false);
 
     //etesale names be enableGame
     connect(ui->lineEditName1 , &QLineEdit::textChanged , this , &MainWindow::enableGame);
@@ -74,7 +78,25 @@ void MainWindow::handleButtonClick(){
 }
 
 void MainWindow::handleAgree(){
+    if (ui->rbtnYes->isChecked()){
+        ui->lineEditWin1->setText(QString::number(ui->lineEditWin1->text().toInt() + tempWin1));
+        ui->lineEditLose1 -> setText(QString::number(ui->lineEditLose1->text().toUInt() + tempLose1));
+        ui->lineEditWin2 -> setText(QString::number(ui->lineEditWin2->text().toInt() + tempWin2));
+        ui->lineEditLose2 -> setText(QString:: number(ui->lineEditLose2->text().toInt() + tempLose2));
+        ui->lineEditDraw1 -> setText((QString::number(ui->lineEditDraw1->text().toInt() + tempDraw1)));
+        ui->lineEditDraw2 -> setText(QString::number(ui->lineEditDraw2->text.toInt() + tempDraw2));
 
+        resetGame();
+    }
+    else if(ui->rbtnNo->isChecked()){
+        QApplication::quit();
+    }
+    tempDraw1 = 0;
+    tempDraw2 = 0;
+    tempLose1 = 0;
+    tempLose2 = 0;
+    tempWin1 = 0;
+    tempWin2 = 0;
 }
 
 void handleReset(){
@@ -127,6 +149,30 @@ void MainWindow::checkForWin(){
         }
 }
 
-void MainWindow::declareWinner(int n){
+void MainWindow::declareWinner(int player){
+    //temp save results
+    if (player == 1){
+        tempWin1 ++;
+        tempLose2 ++;
+        ui->lblWinnerTitle->setText("Winner = " + ui->lineEditName1 -> text());
+    }
+    else if (player == 2){
+        tempWin2 ++;
+        tempLose1 ++;
+        ui->lblWinnerTitle->setText("Winner = " + ui->lineEditName2 -> text());
+    }
+    else{ //if player == 0
+        tempDraw1++;
+        tempDraw2++;
+        ui->lblWinnerTitle ->setText("Draw!");
+    }
+
+    ui->lblGameOver -> setVisible(true);
+    ui->lblWinnerTitle->setVisible(true);
+    ui->gridLayoutWidget_4 ->setVisible(true);
+    disableAllButtons();
+}
+
+void MainWindow::disableAllButtons(){
 
 }
