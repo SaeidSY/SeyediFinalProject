@@ -84,7 +84,7 @@ void MainWindow::handleAgree(){
         ui->lineEditWin2 -> setText(QString::number(ui->lineEditWin2->text().toInt() + tempWin2));
         ui->lineEditLose2 -> setText(QString:: number(ui->lineEditLose2->text().toInt() + tempLose2));
         ui->lineEditDraw1 -> setText((QString::number(ui->lineEditDraw1->text().toInt() + tempDraw1)));
-        ui->lineEditDraw2 -> setText(QString::number(ui->lineEditDraw2->text.toInt() + tempDraw2));
+        ui->lineEditDraw2 -> setText(QString::number(ui->lineEditDraw2->text().toInt() + tempDraw2));
 
         resetGame();
     }
@@ -99,7 +99,15 @@ void MainWindow::handleAgree(){
     tempWin2 = 0;
 }
 
-void handleReset(){
+void MainWindow::handleReset(){
+    tempDraw1 = 0;
+    tempDraw2 = 0;
+    tempLose1 = 0;
+    tempLose2 = 0;
+    tempWin1 = 0;
+    tempWin2 = 0;
+
+    resetGame();
 
 }
 
