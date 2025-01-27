@@ -5,6 +5,7 @@ bool gameStarted = false;
 int currentPlayer = 1;
 int board[25] {0};
 int tempWin1 = 0 , tempWin2 = 0 , tempLose1 = 0 , tempLose2 = 0 , tempDraw1 = 0 , tempDraw2 = 0;
+bool scoreBoardDisabled = false;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -112,7 +113,36 @@ void MainWindow::handleReset(){
 }
 
 void MainWindow::resetGame(){
+    for (int i = 0 ; i<25 ; i++){
+        board[i] = 0;
+    }
+    currentPlayer = 1;
 
+    ui->lineEditName1->setEnabled(true);
+    ui->lineEditName2->setEnabled(true);
+    gameStarted = false;
+
+    for (int i = 0 ; i<25 ; i++){
+        QPushButton* button = findChild<QPushButton*>(QString("btn%1").arg(i));
+        if (button){
+            button->setStyleSheet("");
+            button->setEnabled(!ui->lineEditName1->text().isEmpty() && !ui->lineEditName2->text().isEmpty());
+        }
+    }
+    ui->lblGameOver->setVisible(false);
+    ui->lblWinnerTitle->setVisible(false);
+    ui->gridLayoutWidget_4->setVisible(false);
+
+    ui->lineEditDraw1->setEnabled(true);
+    ui->lineEditDraw2->setEnabled(true);
+    ui->lineEditName1->setEnabled(true);
+    ui->lineEditName2->setEnabled(true);
+    ui->lineEditLose1->setEnabled(true);
+    ui->lineEditLose2->setEnabled(true);
+
+    scoreBoardDisabled = false;
+
+    ui->rbtnYes->setChecked(true);
 }
 
 void MainWindow::checkForWin(){
